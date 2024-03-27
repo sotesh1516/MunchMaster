@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const menuItems = require("./Squires/burger37.js");
 const app = express();
 
 const db = mongoose
@@ -59,14 +58,14 @@ const menuSchema = new mongoose.Schema({
 });
 
 //create a model/collection to add VT foods
-const Squires = new mongoose.model("Squires", menuSchema);
+const vtFood = new mongoose.model("vtFood", menuSchema);
 
 //a middleware that handles data conversion from JSON to object and object to JSON
 app.use(express.json());
 
 //a GET request to access a single data/food
 app.get("/foods/:id", (req, res) => {
-  Squires.findOne({ _id: req.params.id })
+  vtFood.findOne({ _id: req.params.id })
     .then((product) => {
       if (product) {
         console.log(data);
@@ -84,7 +83,7 @@ app.get("/foods/:id", (req, res) => {
 
 //a GET request to access all the data/foods
 app.get("/foods", (req, res) => {
-  Squires.find()
+  vtFood.find()
     .then((product) => {
       res.send(product);
     })
@@ -99,10 +98,10 @@ app.get("/foods", (req, res) => {
 app.post("/foods", (req, res) => {
   const foodToBeAdded = req.body;
   if (typeof foodToBeAdded === "object") {
-    Squires.create(foodToBeAdded);
+    vtFood.create(foodToBeAdded);
   } else if (Array.isArray(foodToBeAdded)) {
     for (let i = 0; i < foodToBeAdded.length; i++) {
-      Squires.create(foodToBeAdded[i]);
+      vtFood.create(foodToBeAdded[i]);
     }
   }
 
@@ -110,7 +109,7 @@ app.post("/foods", (req, res) => {
 });
 
 app.delete("/foods", (req, res) => {
-  Squires.deleteMany({})
+  vtFood.deleteMany({})
     .then((result) => {
       console.log(result);
     })
@@ -121,7 +120,7 @@ app.delete("/foods", (req, res) => {
 });
 
 app.delete("/foods/:id", (req, res) => {
-  Squires.deleteOne({ _id: req.params.id })
+  vtFood.deleteOne({ _id: req.params.id })
     .then((result) => {
       console.log(result);
     })
@@ -134,7 +133,7 @@ app.delete("/foods/:id", (req, res) => {
 app.put('/foods/:id', (req, res) => {
     
     const food = req.body;
-    Squires.updateOne({_id: req.params.id, food}).then((info) => {
+    vtFood.updateOne({_id: req.params.id, food}).then((info) => {
         console.log(info)
         res.send({message: "item has been updated"})
     })
