@@ -1,2 +1,2 @@
-# MunchMaster-backend
-This is the back-end implementation of MunchMaster, a nutrition tracker app made for Virginia Tech students
+# MunchMaster
+This is MunchMaster, a nutrition tracker app made for Virginia Tech students
